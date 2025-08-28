@@ -7,5 +7,5 @@ La idea es utilizar Python para implementar un servidor MCP local que pueda corr
 
 El cliente haría uso de este servidor para enviar solicitudes y obtener respuestas en un formato definido, con la ventaja de que toda la comunicación se mantendría en la red local. Esto garantiza menor latencia y una mayor seguridad en el manejo de los datos, además de permitir que la lógica de negocio quede centralizada en un solo servicio.
 
-Para la implementación se planea utilizar la librería FastAPI, que ofrece una manera sencilla y eficiente de exponer endpoints tipo REST. Ya se cuenta con experiencia previa en el uso de Python y Docker, así como conocimientos básicos de FastAPI, lo cual permitirá avanzar en la construcción y despliegue del servidor de forma más ágil.
+Para la implementación se planea utilizar la librería FastAPI, que ofrece una manera sencilla y eficiente de exponer endpoints tipo REST. Ya cuento con experiencia previa en el uso de Python y Docker, así como conocimientos básicos de FastAPI, lo cual me permitirá avanzar en la construcción y despliegue del servidor.
 
