@@ -1,0 +1,8 @@
+modelcontextprotocol
+fastapi
+uvicorn[standard]
+pandas
+numpy
+scipy
+matplotlib
+openpyxl
