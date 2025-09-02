@@ -1,7 +1,7 @@
 # will use bookworm until I learn trixie 
 FROM python:3.12-slim-bookworm 
 
-RUN groupadd -r appuser && useradd -r -g appuser appuser
+RUN groupadd -r mcpuser && useradd -r -g mcpuser mcpuser
 
 WORKDIR /app
 
@@ -12,9 +12,9 @@ COPY server/ /app/
 
 ENV DATA_DIR=/data/uploads
 RUN mkdir -p /data/uploads && \
-    chown -R appuser:appuser /app /data/uploads
+    chown -R mcpuser:mcpuser /app /data/uploads
 
-USER appuser
+USER mcpuser
 
 VOLUME ["/data/uploads"]
 EXPOSE 8080
