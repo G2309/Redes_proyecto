@@ -1,5 +1,8 @@
+"""MCP Statistics Server for Epidemiological Analysis"""
+
+import sys
+import uvicorn
 from mcp.server.fastmcp import FastMCP
-from mcp.server.fastmcp import run_server  
 from stats_tools import (
     upload_excel_bytes,
     describe_dataset,
@@ -10,8 +13,12 @@ from stats_tools import (
     plot_dataset
 )
 
-mcp = FastMCP("MCP-Estadistico")
+# Inicializa FastMCP (permitir que el CLI importe esto sin side-effects)
+mcp = FastMCP("Epidemiologia")
 
+# -------------------------
+# Registro de herramientas
+# -------------------------
 @mcp.tool()
 def upload_excel(file_bytes: bytes, filename: str) -> str:
     return upload_excel_bytes(file_bytes, filename)
@@ -45,5 +52,24 @@ def plot(dataset_id: str, sheet_name: str, kind: str, x: str = None, y: str = No
     return plot_dataset(dataset_id, sheet_name, kind=kind, x=x, y=y, options=options)
 
 
-run_server(mcp, transport="streamable_http", host="0.0.0.0", port=8080)
+# -------------------------
+# Factory que crea la app ON DEMAND
+# -------------------------
+def create_app():
+    """
+    Devuelve la aplicación ASGI. No la creamos en la importación para evitar
+    conflictos con bucles asyncio ya activos (p. ej. cuando fastmcp CLI importa el módulo).
+    """
+    return mcp.streamable_http_app()
+
+# Entrypoint cuando se ejecuta como script (útil para testing local)
+def main():
+    # si alguien ejecuta: python server.py uvicorn  -> devolvemos la app (compat con tests)
+    if len(sys.argv) > 1 and sys.argv[1] == "uvicorn":
+        return create_app()
+    # normalmente ejecutamos uvicorn aquí *solo si se ejecuta directamente*
+    uvicorn.run(create_app(), host="0.0.0.0", port=8080, log_level="info")
+
+if __name__ == "__main__":
+    main()
 

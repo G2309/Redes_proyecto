@@ -27,3 +27,9 @@ def read_sheet(dataset_id, sheet_name=None):
             return df[sheet_name]
     return df
 
+def get_dataset_path(dataset_id, base_dir=DATA_DIR):
+    files = list(base_dir.glob(f"{dataset_id}_*"))
+    if not files:
+        raise FileNotFoundError(f"No dataset found for id={dataset_id}")
+    return files[0]
+
