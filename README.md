@@ -75,36 +75,36 @@ docker run -it --rm -p 8080:8080 mcp-epidemiology
 
 ### Available Tools
 
-#### 1. `upload_excel(file_bytes: bytes, filename: str) -> str`
+#### 1. upload_excel(file_bytes: bytes, filename: str) -> str
 
 Upload an Excel dataset.  
 Returns a dataset ID.
 
-#### 2. `list_datasets() -> list`
+#### 2. list_datasets() -> list
 
 List available datasets.
 
-#### 3. `describe(dataset_id: str, sheet_name: str = None) -> dict`
+#### 3. describe(dataset_id: str, sheet_name: str = None) -> dict
 
 Return dataset summary (shape, missing values, dtypes, stats).
 
-#### 4. `proportion(dataset_id: str, sheet_name: str, numerator_filter: str, denominator_filter: str) -> dict`
+#### 4. proportion(dataset_id: str, sheet_name: str, numerator_filter: str, denominator_filter: str) -> dict
 
 Compute proportions based on query filters.
 
-#### 5. `odds_ratio_rr(dataset_id, sheet_name, exposure_col, outcome_col, exposure_val, outcome_val) -> dict`
+#### 5. odds_ratio_rr(dataset_id, sheet_name, exposure_col, outcome_col, exposure_val, outcome_val) -> dict
 
 Compute Odds Ratio (OR) and Risk Ratio (RR).
 
-#### 6. `chi_square(dataset_id, sheet_name, col1, col2, correction: bool = True) -> dict`
+#### 6. chi_square(dataset_id, sheet_name, col1, col2, correction: bool = True) -> dict
 
 Perform a Chi-square test of independence.
 
-#### 7. `ttest(dataset_id, sheet_name, group_col, value_col, group1, group2) -> dict`
+#### 7. ttest(dataset_id, sheet_name, group_col, value_col, group1, group2) -> dict
 
 Perform an independent two-sample t-test.
 
-#### 8. `plot(dataset_id, sheet_name, kind: str, x: str = None, y: str = None, options: dict = None) -> dict`
+#### 8. plot(dataset_id, sheet_name, kind: str, x: str = None, y: str = None, options: dict = None) -> dict
 
 Generate a plot (histogram or scatter).
 
@@ -153,7 +153,7 @@ Example response:
 │   ├── stats_tools.py   # Statistical/epidemiological functions
 │   └── utils_io.py      # Dataset IO helpers
 └── tests
-    └── test_tools.py    # Basic tests (future feature :eyes:)
+    └── test_tools.py    # Basic tests (future feature 👀) 
 ```
 
 ---
