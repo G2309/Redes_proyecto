@@ -59,7 +59,7 @@ The server will start at [http://localhost:8080](http://localhost:8080).
 
 ```bash
 docker buildx build -t mcp-epidemiology .
-docker run -it --rm -p 8080:8080 mcp-epidemiology
+docker run -it --rm -p 8080:8080 -v ./data/uploads:/data/uploads mcp-epidemiology
 ```
 
 ---
