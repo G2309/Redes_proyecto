@@ -6,7 +6,7 @@ from scipy import stats
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from utils_io import save_dataset_from_bytes, get_dataset_path, read_sheet
+from utils_io import save_dataset_from_bytes, read_sheet
 
 DATA_DIR = Path("/data/uploads")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
