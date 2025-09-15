@@ -9,6 +9,7 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY server/ /app/
+COPY Inmunoprevenibles2025.xlsx /app 
 
 ENV DATA_DIR=/data/uploads
 RUN mkdir -p /data/uploads && \

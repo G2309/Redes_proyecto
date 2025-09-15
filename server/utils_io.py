@@ -3,7 +3,7 @@ import pandas as pd
 import json
 from typing import Optional, Tuple
 
-DATA_DIR = Path("/data/uploads")
+DATA_DIR = Path("./data/uploads")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 

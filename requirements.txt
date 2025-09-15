@@ -5,5 +5,5 @@ pandas
 numpy
 scipy
 matplotlib
-openpyxl
 fastmcp
+openpyxl
