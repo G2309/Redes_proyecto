@@ -2,8 +2,9 @@ from pathlib import Path
 import pandas as pd
 import json
 from typing import Optional, Tuple
+import zipfile
 
-DATA_DIR = Path("./data/uploads")
+DATA_DIR = Path("/data/uploads")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -54,6 +55,7 @@ def _find_dataset_file(dataset_id: str, base_dir: Optional[Path] = None) -> Path
 
     raise FileNotFoundError(f"Dataset '{dataset_id}' not found in {base}")
 
+import zipfile
 
 def _read_excel_with_engine(path: Path, sheet_name: Optional[str] = None) -> pd.DataFrame:
     ext = path.suffix.lower()
@@ -62,16 +64,18 @@ def _read_excel_with_engine(path: Path, sheet_name: Optional[str] = None) -> pd.
         engine = "openpyxl"
     elif ext == ".xls":
         engine = "xlrd" 
+
     try:
         if ext == ".csv":
             return pd.read_csv(path)
         return pd.read_excel(path, sheet_name=sheet_name, engine=engine)
+    except zipfile.BadZipFile:
+        raise ValueError(f"El archivo '{path.name}' no es un Excel válido (.xlsx). "
+                         "¿Seguro que no es un CSV renombrado?")
     except ValueError as e:
-        raise ValueError(f"Error leyendo Excel '{path}': {e}. Asegúrate de que el archivo no esté corrupto "
-                         "y que tengas instalado 'openpyxl' (para .xlsx) o 'xlrd' (para .xls).") from e
+        raise ValueError(f"Error leyendo Excel '{path}': {e}") from e
     except Exception as e:
         raise RuntimeError(f"Error leyendo archivo '{path}': {e}") from e
-
 
 def read_sheet(dataset_id: str, sheet_name: Optional[str] = None, base_dir: Optional[Path] = None) -> pd.DataFrame:
     path = _find_dataset_file(dataset_id, base_dir=base_dir)

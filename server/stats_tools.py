@@ -12,12 +12,20 @@ DATA_DIR = Path("/data/uploads")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 def upload_excel_bytes(file_bytes: bytes, filename: str) -> str:
+    filename = Path(filename).name
     dataset_id = str(uuid.uuid4())
+
+    for meta_path in DATA_DIR.glob("*.meta.json"):
+        data = json.loads(meta_path.read_text(encoding="utf-8"))
+        if data.get("filename") == filename:
+            return data["id"]
+
     path = save_dataset_from_bytes(dataset_id, file_bytes, filename, base_dir=DATA_DIR)
     meta = {"id": dataset_id, "filename": filename, "path": str(path)}
-    with open(DATA_DIR / f"{dataset_id}.meta.json", "w") as f:
-        json.dump(meta, f)
+    with open(DATA_DIR / f"{dataset_id}.meta.json", "w", encoding="utf-8") as f:
+        json.dump(meta, f, ensure_ascii=False, indent=2)
     return dataset_id
+
 
 def describe_dataset(dataset_id: str, sheet_name: str = None) -> dict:
     df = read_sheet(dataset_id, sheet_name)

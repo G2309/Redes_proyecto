@@ -15,9 +15,7 @@ ENV DATA_DIR=/data/uploads
 RUN mkdir -p /data/uploads && \
     chown -R mcpuser:mcpuser /app /data/uploads
 
-USER mcpuser
-
 VOLUME ["/data/uploads"]
 EXPOSE 8080
-# for building purposes only
 CMD ["python", "server.py"]
+
